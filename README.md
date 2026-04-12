@@ -77,3 +77,6 @@ taskkill /F /PID <PID_NUMBER_FROM_FIRST_COMMAND>
 1. **Package**: `mvn clean package`
 2. **Deploy**: Upload `target/edutrack-1.0.0.jar` to Render/AWS.
 3. **Database**: The connection string is pre-configured for MongoDB Atlas cloud.
+
+
+git

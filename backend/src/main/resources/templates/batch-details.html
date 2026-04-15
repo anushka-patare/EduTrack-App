@@ -66,9 +66,9 @@
                         <hr class="my-5 opacity-25">
 
                         <h2 class="h4 fw-bold mb-4 text-primary"><i class="bi bi-list-check me-2"></i>Detailed Syllabus</h2>
-                        <div class="syllabus-content" th:if="${batch.syllabus != null and !batch.syllabus.isEmpty()}">
-                             <div th:each="line : ${#strings.arraySplit(batch.syllabus, '\n')}" class="syllabus-item">
-                                <p class="mb-0 fw-medium" th:text="${line}">Topic Name</p>
+                        <div class="syllabus-content p-4 bg-light rounded-4" th:if="${batch.syllabus != null and !#strings.isEmpty(batch.syllabus)}">
+                             <div style="white-space: pre-line; line-height: 1.8; font-weight: 500; color: #374151;" th:text="${batch.syllabus}">
+                                Syllabus details...
                              </div>
                         </div>
                         <div th:unless="${batch.syllabus != null and !batch.syllabus.isEmpty()}" class="text-center py-4">

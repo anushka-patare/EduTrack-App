@@ -27,5 +27,6 @@ public class EduTrackService {
     // Batch Operations
     public Batch saveBatch(Batch batch) { return batchRepository.save(batch); }
     public List<Batch> getAllBatches() { return batchRepository.findAll(); }
+    public Batch getBatchById(String id) { return batchRepository.findById(id).orElse(null); }
     public void deleteBatch(String id) { batchRepository.deleteById(id); }
 }

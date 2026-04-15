@@ -26,9 +26,7 @@ public class MainController {
 
     @GetMapping("/batch/{id}")
     public String batchDetails(@PathVariable String id, Model model) {
-        Batch batch = service.getAllBatches().stream()
-                .filter(b -> b.getId().equals(id))
-                .findFirst().orElse(null);
+        Batch batch = service.getBatchById(id);
         model.addAttribute("batch", batch);
         return "batch-details";
     }

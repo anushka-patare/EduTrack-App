@@ -80,6 +80,36 @@ taskkill /F /PID <PID_NUMBER_FROM_FIRST_COMMAND>
 
 ---
 
+## 📚 Detailed Syllabus
+
+Our comprehensive curriculum covers everything from core fundamentals to advanced deployment:
+
+-   **☕ Core Java Fundamentals**: Syntax, Data Types, and Logic.
+-   **🏗️ Object-Oriented Programming (OOP)**: Classes, Objects, Inheritance, Polymorphism, Abstraction, and Encapsulation.
+-   **⚠️ Exception Handling**: Try-catch blocks, Custom exceptions, and error management.
+-   **📦 Collections Framework**: List, Set, Map, and Stream API.
+-   **🧵 Multithreading**: Concurrent programming and thread management.
+-   **🔌 JDBC (Database Connectivity)**: Connecting Java with relational databases.
+-   **🗄️ SQL & Database Design**: Schema design, normalization, and complex queries.
+-   **🌐 Servlets & JSP**: Server-side web development basics.
+-   **🍃 Spring Ecosystem**:
+    -   **Spring Core**: Dependency Injection and IOC.
+    -   **Spring Boot**: Auto-configuration and rapid development.
+    -   **Spring MVC**: Web architecture.
+-   **🚀 REST API Development**: Building scalable web services.
+-   **💾 Hibernate / JPA**: Object-Relational Mapping (ORM).
+-   **🏗️ Microservices Basics**: Distributed systems and service discovery.
+-   **🎨 Frontend Basics**: HTML5, CSS3, and JavaScript (Vanilla).
+-   **⚡ Advanced JavaScript (ES6+)**: Modern JS syntax and features.
+-   **⚛️ React.js / Angular Basics**: Modern frontend frameworks.
+-   **📂 Version Control**: Mastering Git & GitHub.
+-   **🛠️ Project Development**: Building end-to-end real-world applications.
+-   **☁️ Deployment**: Hosting on AWS, Netlify, and Render.
+-   **🎓 Interview Preparation**: Mock interviews, coding challenges, and HR prep.
+-   **🧪 Unit Testing**: JUnit and Mockito fundamentals.
+
+---
+
 ## ⚙️ Environment Variables
 
 To run this application in a production environment (like Render or Docker), set the following environment variables:

@@ -77,3 +77,19 @@ taskkill /F /PID <PID_NUMBER_FROM_FIRST_COMMAND>
 1. **Package**: `mvn clean package`
 2. **Deploy**: Upload `target/edutrack-1.0.0.jar` to Render/AWS.
 3. **Database**: The connection string is pre-configured for MongoDB Atlas cloud.
+
+---
+
+## ⚙️ Environment Variables
+
+To run this application in a production environment (like Render or Docker), set the following environment variables:
+
+| Variable | Description | Default Value |
+|----------|-------------|---------------|
+| `MONGODB_URI` | MongoDB Connection String | `mongodb+srv://<user>:<password>@cluster.mongodb.net/edutrack` |
+| `PORT` | Application Port | `8080` |
+
+### Setting variables on Cloud (e.g. Render):
+1. Go to your Dashboard and navigate to **Environment Variables**.
+2. Add a new variable with Key: `MONGODB_URI` and Value: `your_mongodb_connection_string`.
+3. Add `PORT` if your hosting requires a specific port.

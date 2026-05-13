@@ -50,7 +50,7 @@ spring.data.mongodb.uri=your_mongodb_connection_string
 cd backend
 mvn clean spring-boot:run
 ```
-The app will be available at [http://localhost:8080](http://localhost:8080)
+The app will be available at [http://edutrack-app](https://edutrack-app-uf7u.onrender.com/)
 
 ---
 

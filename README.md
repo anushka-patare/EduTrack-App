@@ -64,4 +64,4 @@ The app will be available at [http://localhost:8080](http://localhost:8080)
 - **Deployment:** Docker, Render.com
 
 ---
-*Developed by Antigravity A*
+*Developed by Durgesh Wagh 8767363217*

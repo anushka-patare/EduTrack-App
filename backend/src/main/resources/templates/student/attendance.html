@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>EduTrack | Attendance</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+</head>
+<body style="background-color: #f8fafc;">
+
+    <div th:replace="~{student/fragments :: navbar}"></div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div th:replace="~{student/fragments :: sidebar(activeMenu='attendance')}"></div>
+
+            <main class="col-md-10 py-4 px-4">
+                <h1 class="h3 fw-bold mb-4">My Attendance Records</h1>
+
+                <div class="card border-0 shadow-sm rounded-4">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th class="ps-4">Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="a : ${attendances}">
+                                        <td class="ps-4 fw-medium text-dark" th:text="${a.date}">Date</td>
+                                        <td>
+                                            <span class="badge px-3 py-2" th:classappend="${a.status == 'Present' ? 'bg-success' : 'bg-danger'}" th:text="${a.status}"></span>
+                                        </td>
+                                    </tr>
+                                    <tr th:if="${#lists.isEmpty(attendances)}">
+                                        <td colspan="2" class="text-center py-5 text-muted">No attendance records found.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

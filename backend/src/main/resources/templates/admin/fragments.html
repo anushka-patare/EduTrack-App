@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <nav th:fragment="sidebar" class="col-md-2 d-none d-md-block sidebar py-4 px-3" style="background: white; min-height: calc(100vh - 56px); box-shadow: 2px 0 5px rgba(0,0,0,0.05);">
+        <style>
+            .nav-link { color: #333; font-weight: 500; border-radius: 8px; margin-bottom: 5px; }
+            .nav-link:hover, .nav-link.active { background: #e8eaf6; color: #1a237e; }
+        </style>
+        <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" th:classappend="${activeMenu == 'dashboard'} ? 'active'" href="/admin"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" th:classappend="${activeMenu == 'manage'} ? 'active'" href="/admin/manage"><i class="bi bi-journal-check me-2"></i> Courses & Batches</a></li>
+            <li class="nav-item"><a class="nav-link" th:classappend="${activeMenu == 'students'} ? 'active'" href="/admin/students"><i class="bi bi-people me-2"></i> Student Registrations</a></li>
+            <li class="nav-item"><a class="nav-link" th:classappend="${activeMenu == 'notifications'} ? 'active'" href="/admin/notifications"><i class="bi bi-bell me-2"></i> Notifications</a></li>
+            <li class="nav-item"><a class="nav-link" th:classappend="${activeMenu == 'placements'} ? 'active'" href="/admin/placements"><i class="bi bi-briefcase me-2"></i> Placements</a></li>
+            <li class="nav-item"><a class="nav-link" th:classappend="${activeMenu == 'reviews'} ? 'active'" href="/admin/reviews"><i class="bi bi-star me-2"></i> Reviews</a></li>
+            <li class="nav-item"><a class="nav-link" th:classappend="${activeMenu == 'gallery'} ? 'active'" href="/admin/gallery"><i class="bi bi-images me-2"></i> Gallery</a></li>
+            <li class="nav-item"><a class="nav-link" th:classappend="${activeMenu == 'contacts'} ? 'active'" href="/admin/contacts"><i class="bi bi-envelope me-2"></i> Inquiries</a></li>
+            <li class="nav-item"><a class="nav-link" th:classappend="${activeMenu == 'settings'} ? 'active'" href="/admin/settings"><i class="bi bi-gear me-2"></i> Settings & About Us</a></li>
+            <hr>
+            <li class="nav-item"><a class="nav-link" href="/"><i class="bi bi-house me-2"></i> View Site</a></li>
+        </ul>
+    </nav>
+    
+    <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark shadow" style="background: #1a237e !important;">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="/admin"><i class="bi bi-shield-lock-fill me-2"></i>EduTrack Admin</a>
+            <div class="ms-auto text-white">
+                <span class="me-3">Welcome, Admin</span>
+                <a href="/" class="btn btn-outline-light btn-sm">Logout</a>
+            </div>
+        </div>
+    </nav>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>EduTrack | Manage Placements</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+</head>
+<body style="background-color: #f0f2f5;">
+
+    <div th:replace="~{admin/fragments :: navbar}"></div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div th:replace="~{admin/fragments :: sidebar(activeMenu='placements')}"></div>
+
+            <main class="col-md-10 py-4 px-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h1 class="h3 fw-bold">Manage Placements</h1>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPlacementModal">
+                        <i class="bi bi-plus-circle me-2"></i>Add Placement
+                    </button>
+                </div>
+
+                <div class="card shadow-sm border-0 rounded-3">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th class="ps-4">Student</th>
+                                        <th>Company</th>
+                                        <th>Package</th>
+                                        <th>Technology</th>
+                                        <th>Status</th>
+                                        <th class="pe-4 text-end">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="p : ${placements}">
+                                        <td class="ps-4">
+                                            <div class="d-flex align-items-center">
+                                                <img th:src="${p.studentPhotoBase64 != null ? p.studentPhotoBase64 : 'https://ui-avatars.com/api/?name=' + p.studentName + '&background=random'}" class="rounded-circle me-3" width="40" height="40" style="object-fit:cover;">
+                                                <span class="fw-medium" th:text="${p.studentName}">Name</span>
+                                            </div>
+                                        </td>
+                                        <td th:text="${p.companyName}">Company</td>
+                                        <td th:text="${p.packageSalary}">Package</td>
+                                        <td th:text="${p.technology}">Tech</td>
+                                        <td>
+                                            <span class="badge" th:classappend="${p.isHidden ? 'bg-secondary' : 'bg-success'}" th:text="${p.isHidden ? 'Hidden' : 'Visible'}"></span>
+                                        </td>
+                                        <td class="pe-4 text-end">
+                                            <a th:href="@{/admin/placement/toggle/{id}(id=${p.id})}" class="btn btn-sm btn-outline-secondary me-2">Toggle Visibility</a>
+                                            <a th:href="@{/admin/placement/delete/{id}(id=${p.id})}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure?')"><i class="bi bi-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr th:if="${#lists.isEmpty(placements)}">
+                                        <td colspan="6" class="text-center py-5 text-muted">No placements found.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Placement Modal -->
+                <div class="modal fade" id="addPlacementModal" tabindex="-1">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Add New Placement</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <form action="/admin/placement/add" method="post" enctype="multipart/form-data">
+                                <div class="modal-body">
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Student Name</label>
+                                            <input type="text" name="studentName" class="form-control" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Company Name</label>
+                                            <input type="text" name="companyName" class="form-control" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Package/Salary</label>
+                                            <input type="text" name="packageSalary" class="form-control" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Technology</label>
+                                            <input type="text" name="technology" class="form-control" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Student Photo</label>
+                                            <input type="file" name="studentPhoto" class="form-control" accept="image/*">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Company Logo</label>
+                                            <input type="file" name="companyLogo" class="form-control" accept="image/*">
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label">Success Story / Comments</label>
+                                            <textarea name="successStory" class="form-control" rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Save Placement</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

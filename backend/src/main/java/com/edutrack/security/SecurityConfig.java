@@ -23,13 +23,22 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/batch/**", "/student/**", "/login", "/css/**", "/js/**").permitAll()
+                .requestMatchers("/", "/about", "/contact/**", "/review/**", "/batch/**", "/student/**", "/login", "/css/**", "/js/**", "/images/**").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
                 .loginPage("/login")
-                .defaultSuccessUrl("/admin", true)
+                .successHandler((request, response, authentication) -> {
+                    String role = authentication.getAuthorities().iterator().next().getAuthority();
+                    if (role.equals("ROLE_ADMIN")) {
+                        response.sendRedirect("/admin");
+                    } else if (role.equals("ROLE_STUDENT")) {
+                        response.sendRedirect("/student/dashboard");
+                    } else {
+                        response.sendRedirect("/");
+                    }
+                })
                 .permitAll()
             )
             .logout(logout -> logout

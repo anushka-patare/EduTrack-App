@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>EduTrack | Student Registration</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body { background: #f8fafc; font-family: 'Inter', sans-serif; py-5; }
+        .reg-card { background: white; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); overflow: hidden; max-width: 800px; margin: 40px auto; }
+        .reg-header { background: linear-gradient(135deg, #4F46E5 0%, #0ea5e9 100%); color: white; padding: 40px; text-align: center; }
+        .form-control, .form-select { border-radius: 10px; padding: 12px 20px; background: #f8fafc; border: 1px solid #e2e8f0; }
+        .form-control:focus, .form-select:focus { box-shadow: none; border-color: #4F46E5; }
+        .btn-primary { background: #4F46E5; border: none; border-radius: 10px; padding: 12px; font-weight: 600; width: 100%; }
+        .btn-primary:hover { background: #4338ca; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="reg-card">
+        <div class="reg-header">
+            <h2 class="fw-bold mb-2">Join EduTrack</h2>
+            <p class="mb-0 opacity-75">Create your student account to access your learning portal.</p>
+        </div>
+        <div class="p-5">
+            <form action="/student/register" method="post">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <label class="form-label text-muted small fw-bold">Full Name</label>
+                        <input type="text" name="name" class="form-control" required placeholder="John Doe">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label text-muted small fw-bold">Email Address</label>
+                        <input type="email" name="email" class="form-control" required placeholder="john@example.com">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label text-muted small fw-bold">Mobile Number</label>
+                        <input type="text" name="mobile" class="form-control" required placeholder="+91 0000000000">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label text-muted small fw-bold">Gender</label>
+                        <select name="gender" class="form-select" required>
+                            <option value="" selected disabled>Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label text-muted small fw-bold">Select Batch</label>
+                        <select name="batch" class="form-select" required>
+                            <option value="" selected disabled>Choose the batch you enrolled in</option>
+                            <option th:each="b : ${batches}" th:value="${b.name}" th:text="${b.name + ' (Fees: ₹' + b.totalFees + ')'}"></option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label text-muted small fw-bold">Create Password</label>
+                        <input type="password" name="password" class="form-control" required placeholder="••••••••">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label text-muted small fw-bold">Confirm Password</label>
+                        <input type="password" class="form-control" required placeholder="••••••••">
+                    </div>
+                    
+                    <div class="col-12 mt-5">
+                        <button type="submit" class="btn btn-primary">Create Account</button>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4 border-top pt-4">
+                    <p class="text-muted small">Already have an account? <a href="/student/login" class="fw-bold text-decoration-none" style="color: #4F46E5;">Login here</a></p>
+                    <a href="/" class="text-muted text-decoration-none small"><i class="bi bi-arrow-left me-1"></i> Back to Home</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

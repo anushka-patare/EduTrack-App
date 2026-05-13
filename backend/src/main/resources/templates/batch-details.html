@@ -44,7 +44,7 @@
                         <div class="row mb-5">
                             <div class="col-md-8">
                                 <h2 class="h4 fw-bold mb-3 text-primary">About this Course</h2>
-                                <p class="text-muted" th:text="${batch.description != null ? batch.description : 'Welcome to this specialized course designed to provide in-depth knowledge and hands-on experience in the field. Our program is structured to help you master the core concepts and modern techniques required by the industry.'}">
+                                <p class="text-muted" style="white-space: pre-wrap;" th:text="${batch.description != null ? batch.description : 'Welcome to this specialized course designed to provide in-depth knowledge and hands-on experience in the field. Our program is structured to help you master the core concepts and modern techniques required by the industry.'}">
                                     Batch description...
                                 </p>
                             </div>
@@ -58,7 +58,7 @@
                                         <small class="text-muted d-block">Start Date</small>
                                         <span class="fw-bold fs-5 text-dark" th:text="${batch.startDate}">Date</span>
                                     </div>
-                                    <a href="/student" class="btn btn-primary w-100 py-3 fw-bold" style="border-radius: 12px;">Enroll Now</a>
+                                    <a th:href="@{/student/pay/{id}(id=${batch.id})}" class="btn btn-primary w-100 py-3 fw-bold" style="border-radius: 12px;">Enroll Now</a>
                                 </div>
                             </div>
                         </div>
@@ -66,10 +66,10 @@
                         <hr class="my-5 opacity-25">
 
                         <h2 class="h4 fw-bold mb-4 text-primary"><i class="bi bi-list-check me-2"></i>Detailed Syllabus</h2>
-                        <div class="syllabus-content p-4 bg-light rounded-4" th:if="${batch.syllabus != null and !#strings.isEmpty(batch.syllabus)}">
-                             <div style="white-space: pre-line; line-height: 1.8; font-weight: 500; color: #374151;" th:text="${batch.syllabus}">
-                                Syllabus details...
-                             </div>
+                        <div class="syllabus-content" th:if="${batch.syllabus != null and !batch.syllabus.isEmpty()}">
+                            <div class="syllabus-item">
+                                <p class="mb-0 fw-medium" style="white-space: pre-wrap; line-height: 1.8;" th:text="${batch.syllabus}">Syllabus content</p>
+                            </div>
                         </div>
                         <div th:unless="${batch.syllabus != null and !batch.syllabus.isEmpty()}" class="text-center py-4">
                             <p class="text-muted italic">Syllabus details for this batch are coming soon. Stay tuned!</p>

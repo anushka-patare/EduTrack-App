@@ -39,4 +39,25 @@ public class Student {
     public void setFeesPaid(double feesPaid) { this.feesPaid = feesPaid; }
     public double getFeesRemaining() { return feesRemaining; }
     public void setFeesRemaining(double feesRemaining) { this.feesRemaining = feesRemaining; }
+
+    // New Fields
+    private String password;
+    private String mobile;
+    private String address;
+    private String profilePhotoBase64;
+    private String joiningDate;
+    private boolean isApproved;
+
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
+    public String getMobile() { return mobile; }
+    public void setMobile(String mobile) { this.mobile = mobile; }
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
+    public String getProfilePhotoBase64() { return profilePhotoBase64; }
+    public void setProfilePhotoBase64(String profilePhotoBase64) { this.profilePhotoBase64 = profilePhotoBase64; }
+    public String getJoiningDate() { return joiningDate; }
+    public void setJoiningDate(String joiningDate) { this.joiningDate = joiningDate; }
+    public boolean isApproved() { return isApproved; }
+    public void setApproved(boolean approved) { isApproved = approved; }
 }

@@ -4,97 +4,398 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EduTrack | Welcome</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <!-- AOS Animation -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        body { background-color: #f8f9fa; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        .hero-section {
-            background: linear-gradient(135deg, #0d6efd 0%, #0dcaf0 100%);
-            color: white;
-            padding: 100px 0;
-            border-radius: 0 0 50% 50% / 10%;
+        :root {
+            --primary-color: #4F46E5;
+            --secondary-color: #0ea5e9;
+            --accent-color: #f43f5e;
+            --dark-color: #0f172a;
+            --light-color: #f8fafc;
         }
-        .card { border: none; transition: transform 0.3s; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-        .card:hover { transform: translateY(-10px); }
-        .btn-primary { border-radius: 30px; padding: 10px 30px; font-weight: 600; }
+        body { 
+            background-color: var(--light-color); 
+            font-family: 'Inter', sans-serif; 
+            color: #334155;
+            scroll-behavior: smooth;
+        }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Outfit', sans-serif; font-weight: 700; color: var(--dark-color); }
+        
+        /* Navbar */
+        .navbar { 
+            background: rgba(255, 255, 255, 0.95) !important; 
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .navbar-brand { color: var(--primary-color) !important; font-weight: 800; font-size: 1.5rem; }
+        .nav-link { color: #475569 !important; font-weight: 500; margin: 0 10px; position: relative; }
+        .nav-link:hover, .nav-link.active { color: var(--primary-color) !important; }
+        .nav-link::after {
+            content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 0;
+            background-color: var(--primary-color); transition: width 0.3s ease;
+        }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.9) 0%, rgba(14, 165, 233, 0.9) 100%), url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            color: white;
+            padding: 160px 0 120px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-section h1 { color: white; font-size: 4rem; letter-spacing: -1px; }
+        .hero-shape { position: absolute; bottom: -2px; left: 0; width: 100%; }
+        
+        /* Buttons */
+        .btn-custom { border-radius: 50px; padding: 12px 30px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s; }
+        .btn-primary-custom { background: var(--primary-color); border: none; color: white; box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3); }
+        .btn-primary-custom:hover { background: #4338ca; transform: translateY(-3px); box-shadow: 0 15px 25px rgba(79, 70, 229, 0.4); color: white;}
+        .btn-outline-custom { background: transparent; border: 2px solid white; color: white; }
+        .btn-outline-custom:hover { background: white; color: var(--primary-color); transform: translateY(-3px); }
+
+        /* Sections */
+        .section-padding { padding: 100px 0; }
+        .section-title { font-size: 2.5rem; text-align: center; margin-bottom: 3rem; position: relative; }
+        .section-title::after {
+            content: ''; display: block; width: 60px; height: 4px; background: var(--primary-color);
+            margin: 15px auto 0; border-radius: 2px;
+        }
+
+        /* Cards */
+        .glass-card {
+            background: white; border-radius: 20px; border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+        }
+        .glass-card:hover { transform: translateY(-15px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+
+        /* Placement Item */
+        .placement-card { text-align: center; padding: 30px; }
+        .placement-img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin: 0 auto 15px; border: 4px solid var(--light-color); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .company-logo { height: 40px; object-fit: contain; margin-top: 15px; }
+
+        /* Review Item */
+        .review-card { padding: 30px; position: relative; z-index: 1; }
+        .review-card i.quote { position: absolute; top: 20px; right: 20px; font-size: 4rem; color: rgba(79, 70, 229, 0.05); z-index: -1; }
+        .rating-stars { color: #fbbf24; }
+
+        /* Contact Section */
+        .contact-info-box { background: var(--primary-color); color: white; padding: 40px; border-radius: 20px; height: 100%; box-shadow: 0 20px 40px rgba(79, 70, 229, 0.2); }
+        .contact-form-box { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .form-control { border-radius: 10px; padding: 15px; border: 1px solid #e2e8f0; background: #f8fafc; }
+        .form-control:focus { border-color: var(--primary-color); box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.2); }
+
+        /* Footer */
+        footer { background: var(--dark-color); color: white; padding: 60px 0 30px; }
+        .social-links a { display: inline-flex; width: 40px; height: 40px; align-items: center; justify-content: center; background: rgba(255,255,255,0.1); border-radius: 50%; color: white; margin-right: 10px; transition: all 0.3s; }
+        .social-links a:hover { background: var(--primary-color); transform: translateY(-3px); }
     </style>
 </head>
-<body>
+<body data-bs-spy="scroll" data-bs-target="#navbarNav" data-bs-offset="100" tabindex="0">
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+    <nav class="navbar navbar-expand-lg fixed-top shadow-sm">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="/"><i class="bi bi-book-half me-2"></i>EduTrack</a>
+            <a class="navbar-brand" href="/"><i class="bi bi-rocket-takeoff-fill me-2"></i>EduTrack</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/admin">Admin Dashboard</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/student">Student Portal</a></li>
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/about">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#courses">Courses</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#placements">Placements</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#reviews">Reviews</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                 </ul>
+                <div class="d-flex gap-2">
+                    <a href="/student/register" class="btn btn-outline-custom text-dark border-dark" style="padding: 8px 20px; border-radius: 30px;">Student Register</a>
+                    <a href="/student/login" class="btn btn-primary-custom" style="padding: 8px 20px; border-radius: 30px;">Student Login</a>
+                </div>
             </div>
         </div>
     </nav>
 
-    <header class="hero-section text-center">
-        <div class="container">
-            <h1 class="display-3 fw-bold mb-3">EduTrack</h1>
-            <p class="lead mb-4">Advanced Institute Management System</p>
-            <div class="d-flex justify-content-center gap-3">
-                <a href="/admin" class="btn btn-light btn-lg text-primary fw-bold shadow">Go to Admin</a>
-                <a href="/student" class="btn btn-outline-light btn-lg fw-bold">Student Portal</a>
+    <header id="home" class="hero-section text-center">
+        <div class="container" data-aos="fade-up">
+            <span class="badge bg-white text-primary mb-3 px-3 py-2 rounded-pill shadow-sm" style="letter-spacing: 1px;">
+                <i class="bi bi-stars me-1 text-warning"></i> 
+                <span th:text="${settings.instituteIntro != null ? settings.instituteIntro : 'Welcome On EduTrack'}">Welcome On EduTrack</span>
+            </span>
+            <h1 class="display-3 fw-bold mb-4 mt-2">Master Your Future With <br> <span class="text-warning">Advanced Technologies</span></h1>
+            <p class="lead mb-5 mx-auto opacity-90" style="max-width: 800px; font-weight: 500; text-shadow: 0 2px 4px rgba(0,0,0,0.2);" th:text="${settings.visionMission != null ? settings.visionMission : 'Vision To become a leading technology training institute that empowers students with technical skills, innovation, and career opportunities.'}"></p>
+            <div class="d-flex justify-content-center gap-3 flex-wrap">
+                <a href="#courses" class="btn btn-custom btn-primary-custom px-5 py-3">Explore Courses</a>
+                <a href="#contact" class="btn btn-custom btn-outline-custom px-5 py-3">Contact Us</a>
             </div>
         </div>
+        <svg class="hero-shape" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#f8fafc" fill-opacity="1" d="M0,160L48,170.7C96,181,192,203,288,192C384,181,480,139,576,144C672,149,768,203,864,224C960,245,1056,235,1152,213.3C1248,192,1344,160,1392,144L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
     </header>
 
-    <main class="container my-5">
-        <h2 class="text-center mb-5 fw-bold">Our Available Batches</h2>
-        <div class="row g-4">
-            <!-- Dynamic Batch Cards -->
-            <div th:each="batch : ${batches}" class="col-md-4">
-                <div class="card h-100 shadow-sm border-0 overflow-hidden" style="border-radius: 20px;">
-                    <div class="card-body p-4">
+    <!-- Courses Section -->
+    <section id="courses" class="section-padding">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Our Premium Courses</h2>
+            <div class="row g-4">
+                <div th:each="batch : ${batches}" class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="glass-card h-100 p-4">
                         <div class="d-flex justify-content-between align-items-start mb-3">
-                            <h3 class="card-title h5 fw-bold text-primary mb-0" th:text="${batch.name}">Batch Name</h3>
-                            <span class="badge bg-soft-primary text-primary" th:text="${batch.duration}" style="background-color: #e7f1ff;">Duration</span>
+                            <h3 class="h4 mb-0 text-primary" th:text="${batch.name}">Batch Name</h3>
+                            <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-2" th:text="${batch.duration}">Duration</span>
                         </div>
-                        <p class="card-text text-muted mb-4" th:text="${batch.description != null ? batch.description : 'Explore our comprehensive training program tailored for industry excellence.'}">
-                            Short Description
-                        </p>
-                        <hr class="my-4 opacity-25">
-                        <div class="d-flex justify-content-between align-items-center mb-4">
+                        <p class="text-muted mb-4" th:text="${batch.description}">Description</p>
+                        <div class="d-flex justify-content-between align-items-center mb-4 p-3 bg-light rounded-3">
+                            <div><small class="d-block text-muted">Fees</small><span class="fw-bold fs-5" th:text="'₹' + ${batch.totalFees}"></span></div>
+                            <div class="text-end"><small class="d-block text-muted">Starts</small><span class="fw-bold" th:text="${batch.startDate}"></span></div>
+                        </div>
+                        <a th:href="@{'/batch/' + ${batch.id}}" class="btn btn-outline-primary w-100 rounded-pill py-2">View Syllabus <i class="bi bi-arrow-right ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Placements Section -->
+    <section id="placements" class="section-padding" style="background: white;">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Our Placements</h2>
+            <div class="row g-4">
+                <div th:each="p : ${placements}" class="col-lg-3 col-md-4 col-sm-6" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="glass-card placement-card">
+                        <img th:src="${p.studentPhotoBase64 != null ? p.studentPhotoBase64 : 'https://ui-avatars.com/api/?name=' + p.studentName + '&background=random'}" class="placement-img" alt="Student">
+                        <h5 class="mb-1" th:text="${p.studentName}">Student Name</h5>
+                        <p class="text-primary fw-bold mb-2" th:text="${p.packageSalary}">Package</p>
+                        <p class="text-muted small mb-3" th:text="${p.technology}">Technology</p>
+                        <hr class="opacity-10">
+                        <img th:if="${p.companyLogoBase64 != null}" th:src="${p.companyLogoBase64}" class="company-logo" alt="Company">
+                        <h6 th:if="${p.companyLogoBase64 == null}" th:text="${p.companyName}" class="mt-2 text-muted fw-bold">Company Name</h6>
+                    </div>
+                </div>
+                <div th:if="${#lists.isEmpty(placements)}" class="col-12 text-center text-muted">
+                    <p>Exciting placement records coming soon.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="section-padding bg-light">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">What Students Say</h2>
+            
+            <div th:if="${param.reviewSuccess}" class="alert alert-success alert-dismissible fade show" role="alert">
+                Review submitted successfully! It will appear once approved by admin.
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+
+            <div class="row mb-5">
+                <div class="col-lg-8 mx-auto">
+                    <div id="reviewCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner pb-5">
+                            <div th:each="r, iter : ${reviews}" class="carousel-item" th:classappend="${iter.index == 0} ? 'active'">
+                                <div class="glass-card review-card text-center mx-3">
+                                    <i class="bi bi-quote quote"></i>
+                                    <div class="rating-stars fs-4 mb-3">
+                                        <i class="bi bi-star-fill" th:each="i : ${#numbers.sequence(1, r.rating)}"></i>
+                                        <i class="bi bi-star" th:each="i : ${#numbers.sequence(r.rating + 1, 5)}" th:if="${r.rating < 5}"></i>
+                                    </div>
+                                    <p class="fs-5 fst-italic mb-4" th:text="${r.message}"></p>
+                                    <img th:src="${r.profileImageBase64 != null ? r.profileImageBase64 : 'https://ui-avatars.com/api/?name=' + r.studentName + '&background=random'}" class="rounded-circle mb-2" width="60" height="60" style="object-fit:cover;">
+                                    <h6 class="fw-bold mb-0" th:text="${r.studentName}"></h6>
+                                    <small class="text-muted" th:text="${r.course}"></small>
+                                </div>
+                            </div>
+                            <div th:if="${#lists.isEmpty(reviews)}" class="carousel-item active">
+                                <p class="text-center text-muted">No reviews yet.</p>
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#reviewCarousel" data-bs-slide="prev" style="filter: invert(1); left: -50px;">
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#reviewCarousel" data-bs-slide="next" style="filter: invert(1); right: -50px;">
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="glass-card p-4">
+                        <h4 class="text-center mb-4">Leave a Review</h4>
+                        <form action="/review/submit" method="post" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <input type="text" name="studentName" class="form-control" placeholder="Your Name" required>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <input type="text" name="course" class="form-control" placeholder="Course Name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <select name="rating" class="form-select form-control" required>
+                                        <option value="5">⭐⭐⭐⭐⭐ (5/5)</option>
+                                        <option value="4">⭐⭐⭐⭐ (4/5)</option>
+                                        <option value="3">⭐⭐⭐ (3/5)</option>
+                                        <option value="2">⭐⭐ (2/5)</option>
+                                        <option value="1">⭐ (1/5)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <textarea name="message" class="form-control" rows="3" placeholder="Your Feedback" required></textarea>
+                            </div>
+                            <div class="mb-4">
+                                <label class="form-label text-muted small">Profile Photo (Optional)</label>
+                                <input type="file" name="profileImage" class="form-control" accept="image/*">
+                            </div>
+                            <button type="submit" class="btn btn-primary-custom w-100">Submit Review</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="section-padding">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Life at EduTrack</h2>
+            <div class="row g-4">
+                <div th:each="img : ${gallery}" class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="glass-card overflow-hidden">
+                        <img th:src="${img.imageBase64}" class="w-100" style="height: 250px; object-fit: cover;" th:alt="${img.title}">
+                    </div>
+                </div>
+                <div th:if="${#lists.isEmpty(gallery)}" class="col-12 text-center text-muted">
+                    <p>Gallery images coming soon.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section-padding">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Get In Touch</h2>
+            <div class="row g-4 align-items-stretch">
+                <div class="col-lg-5" data-aos="fade-right">
+                    <div class="contact-info-box d-flex flex-column justify-content-center">
+                        <h3 class="text-white mb-4">Contact Information</h3>
+                        <p class="mb-4 opacity-75">Fill up the form and our Team will get back to you within 24 hours.</p>
+                        
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="bg-white bg-opacity-10 p-3 rounded-circle me-3"><i class="bi bi-telephone fs-4"></i></div>
                             <div>
-                                <small class="text-muted d-block">Course Fees</small>
-                                <span class="fw-bold fs-5 text-dark" th:text="'₹' + ${batch.totalFees}">₹0000</span>
-                            </div>
-                            <div class="text-end">
-                                <small class="text-muted d-block">Starts From</small>
-                                <span class="fw-bold" th:text="${batch.startDate}">Date</span>
+                                <h6 class="mb-0 text-white">Phone</h6>
+                                <span class="opacity-75" th:text="${settings.mobileNumber != null ? settings.mobileNumber : '+91 0000000000'}"></span>
                             </div>
                         </div>
-                        <div class="d-grid gap-2">
-                            <a th:href="@{'/batch/' + ${batch.id}}" class="btn btn-outline-primary" style="border-radius: 12px;">View Syllabus</a>
-                            <a href="/student" class="btn btn-primary" style="border-radius: 12px; background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%); border: none;">Register Now</a>
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="bg-white bg-opacity-10 p-3 rounded-circle me-3"><i class="bi bi-envelope fs-4"></i></div>
+                            <div>
+                                <h6 class="mb-0 text-white">Email</h6>
+                                <span class="opacity-75" th:text="${settings.email != null ? settings.email : 'info@edutrack.com'}"></span>
+                            </div>
                         </div>
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="bg-white bg-opacity-10 p-3 rounded-circle me-3"><i class="bi bi-geo-alt fs-4"></i></div>
+                            <div>
+                                <h6 class="mb-0 text-white">Address</h6>
+                                <span class="opacity-75" th:text="${settings.address != null ? settings.address : '123 Tech Street, City'}"></span>
+                            </div>
+                        </div>
+                        <div class="social-links mt-auto pt-4 border-top border-light border-opacity-10">
+                            <a th:href="${settings.facebookUrl != null ? settings.facebookUrl : '#'}"><i class="bi bi-facebook"></i></a>
+                            <a th:href="${settings.instagramUrl != null ? settings.instagramUrl : '#'}"><i class="bi bi-instagram"></i></a>
+                            <a th:href="${settings.linkedinUrl != null ? settings.linkedinUrl : '#'}"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7" data-aos="fade-left">
+                    <div class="contact-form-box">
+                        <div th:if="${param.contactSuccess}" class="alert alert-success">Your message has been sent successfully!</div>
+                        <form action="/contact/submit" method="post">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <input type="text" name="fullName" class="form-control" placeholder="Full Name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="email" name="email" class="form-control" placeholder="Email Address" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" name="mobileNumber" class="form-control" placeholder="Mobile Number" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" name="subject" class="form-control" placeholder="Subject" required>
+                                </div>
+                                <div class="col-12">
+                                    <textarea name="message" class="form-control" rows="5" placeholder="Your Message" required></textarea>
+                                </div>
+                                <div class="col-12 mt-4">
+                                    <button type="submit" class="btn btn-primary-custom w-100 py-3">Send Message <i class="bi bi-send ms-2"></i></button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
             
-            <div th:if="${#lists.isEmpty(batches)}" class="col-12 text-center py-5">
-                <i class="bi bi-calendar-x display-1 text-muted opacity-25"></i>
-                <p class="mt-3 text-muted">No active batches available at the moment. Please check back later!</p>
+            <div class="mt-5 rounded-4 overflow-hidden shadow-sm" style="height: 400px;" th:if="${settings.googleMapUrl != null && !settings.googleMapUrl.isEmpty()}" data-aos="fade-up">
+                <iframe th:src="${settings.googleMapUrl}" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             </div>
         </div>
-    </main>
+    </section>
 
-    <footer class="bg-dark text-white text-center py-4 mt-5">
+    <footer class="bg-dark text-white pt-5 pb-4 mt-5">
         <div class="container">
-            <p class="mb-0">© 2026 EduTrack Institute Management System. Built with Spring Boot & Thymeleaf.</p>
+            <div class="row text-start g-4 mb-4">
+                <div class="col-md-4">
+                    <h5 class="fw-bold text-white mb-3">EduTrack</h5>
+                    <p class="text-white small">Mastering technologies, shaping futures. We provide top-notch education and placement support to build your career.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="fw-bold text-white mb-3">Quick Links</h5>
+                    <ul class="list-unstyled text-white small">
+                        <li class="mb-2"><a href="/about" class="text-white text-decoration-none">About Us</a></li>
+                        <li class="mb-2"><a href="#courses" class="text-white text-decoration-none">Courses</a></li>
+                        <li class="mb-2"><a href="#placements" class="text-white text-decoration-none">Placements</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="fw-bold text-white mb-3">Admin Portal</h5>
+                    <p class="text-white small">Authorized personnel only.</p>
+                    <a href="/admin" class="btn btn-sm btn-light text-dark fw-bold mt-2 rounded-pill px-4">Admin Login</a>
+                </div>
+            </div>
+            <hr class="border-white opacity-25 my-4">
+            <div class="text-center">
+                <p class="mb-0 text-white small">&copy; 2026 EduTrack. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, offset: 100, duration: 800 });
+        
+        // Sticky Navbar background on scroll
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                document.querySelector('.navbar').classList.add('shadow');
+            } else {
+                document.querySelector('.navbar').classList.remove('shadow');
+            }
+        });
+    </script>
 </body>
 </html>

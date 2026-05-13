@@ -7,40 +7,21 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <style>
         body { background-color: #f0f2f5; }
-        .navbar { background: #1a237e !important; }
         .card-stats { border-left: 5px solid #1a237e; border-radius: 10px; }
         .card-summary-students { border-left-color: #0d6efd; }
         .card-summary-batches { border-left-color: #6610f2; }
         .card-summary-collected { border-left-color: #198754; }
         .card-summary-pending { border-left-color: #dc3545; }
-        .sidebar { background: white; min-height: calc(100vh - 56px); box-shadow: 2px 0 5px rgba(0,0,0,0.05); }
-        .nav-link { color: #333; font-weight: 500; border-radius: 8px; margin-bottom: 5px; }
-        .nav-link:hover, .nav-link.active { background: #e8eaf6; color: #1a237e; }
         th { background-color: #f8f9fa !important; color: #1a237e; }
     </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark shadow">
-        <div class="container-fluid">
-            <a class="navbar-brand fw-bold" href="/"><i class="bi bi-mortarboard-fill me-2"></i>EduTrack Admin</a>
-            <div class="ms-auto text-white">
-                <span class="me-3">Welcome, Admin</span>
-                <a href="/logout" class="btn btn-outline-light btn-sm">Logout</a>
-            </div>
-        </div>
-    </nav>
+    <div th:replace="~{admin/fragments :: navbar}"></div>
 
     <div class="container-fluid">
         <div class="row">
-            <!-- Sidebar -->
-            <nav class="col-md-2 d-none d-md-block sidebar py-4 px-3">
-                <ul class="nav flex-column">
-                    <li class="nav-item"><a class="nav-link active" href="/admin"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/admin/manage"><i class="bi bi-people me-2"></i> Students & Batches</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/"><i class="bi bi-house me-2"></i> View Site</a></li>
-                </ul>
-            </nav>
+            <div th:replace="~{admin/fragments :: sidebar(activeMenu='dashboard')}"></div>
 
             <!-- Main Content -->
             <main class="col-md-10 py-4 px-4">

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>EduTrack | Course Enrollment & Payment</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        body { background: #f8fafc; font-family: 'Inter', sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+        .pay-card { background: white; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.08); overflow: hidden; width: 100%; max-width: 900px; margin: 40px auto; }
+        .pay-left { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 50px; display: flex; flex-direction: column; justify-content: center; }
+        .pay-right { padding: 50px; }
+        .form-control { border-radius: 10px; padding: 12px 20px; background: #f8fafc; border: 1px solid #e2e8f0; font-size: 1.2rem; font-weight: bold; }
+        .form-control:focus { box-shadow: none; border-color: #10b981; }
+        .btn-success { background: #10b981; border: none; border-radius: 10px; padding: 15px; font-weight: bold; font-size: 1.1rem; width: 100%; }
+        .btn-success:hover { background: #059669; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="pay-card row mx-auto">
+        <div class="col-md-5 pay-left text-center d-none d-md-flex">
+            <i class="bi bi-shield-check display-1 mb-4"></i>
+            <h2 class="fw-bold mb-3">Secure Enrollment</h2>
+            <p class="opacity-75">You are enrolling in the <strong th:text="${batch.name}"></strong> course.</p>
+            <div class="mt-4 p-3 bg-white bg-opacity-10 rounded-4 text-start">
+                <small class="opacity-75 d-block">Total Course Fee</small>
+                <h3 class="fw-bold mb-0 text-white" th:text="${'₹' + batch.totalFees}">₹0</h3>
+            </div>
+        </div>
+        <div class="col-md-7 pay-right">
+            <div class="mb-4">
+                <h3 class="fw-bold text-dark">Make a Payment</h3>
+                <p class="text-muted">Enter the amount you wish to pay now to secure your enrollment.</p>
+            </div>
+            
+            <form action="/student/pay/process" method="post">
+                <input type="hidden" name="batchId" th:value="${batch.id}">
+                
+                <div class="mb-4">
+                    <label class="form-label text-muted small fw-bold">Amount to Pay (INR)</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-end-0 fs-5">₹</span>
+                        <input type="number" name="amount" class="form-control border-start-0" required min="100" th:max="${batch.totalFees}" placeholder="e.g. 5000" autofocus>
+                    </div>
+                    <small class="text-muted mt-2 d-block"><i class="bi bi-info-circle me-1"></i> You can pay a partial amount now and the rest later.</small>
+                </div>
+                
+                <div class="mb-5">
+                    <label class="form-label text-muted small fw-bold">Select Payment Method</label>
+                    <div class="d-flex gap-2">
+                        <div class="border rounded-3 p-3 flex-fill text-center border-success bg-success bg-opacity-10" style="cursor: pointer;">
+                            <i class="bi bi-credit-card fs-4 text-success d-block mb-1"></i> <small class="fw-bold text-success">Card/UPI</small>
+                        </div>
+                        <div class="border rounded-3 p-3 flex-fill text-center opacity-50" style="cursor: not-allowed;">
+                            <i class="bi bi-bank fs-4 d-block mb-1"></i> <small class="fw-bold">Net Banking</small>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-success shadow-sm"><i class="bi bi-lock-fill me-2"></i> Pay Securely & Enroll</button>
+                <div class="text-center mt-4">
+                    <a href="/student/dashboard" class="text-muted text-decoration-none small">Cancel & Return to Dashboard</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

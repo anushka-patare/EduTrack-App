@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>EduTrack | Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+</head>
+<body style="background-color: #f8fafc;">
+
+    <div th:replace="~{student/fragments :: navbar}"></div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div th:replace="~{student/fragments :: sidebar(activeMenu='dashboard')}"></div>
+
+            <main class="col-md-10 py-4 px-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h1 class="h3 fw-bold text-dark">Welcome back, <span th:text="${student.name.split(' ')[0]}"></span>! 👋</h1>
+                </div>
+
+                <div th:if="${!student.isApproved}" class="alert alert-warning d-flex align-items-center">
+                    <i class="bi bi-exclamation-triangle-fill fs-4 me-3"></i>
+                    <div>
+                        <strong>Account Pending Approval</strong><br>
+                        Your account is currently under review by the admin. You may have limited access to some features until approved.
+                    </div>
+                </div>
+
+                <div class="row g-4 mb-4">
+                    <!-- Progress Card -->
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm rounded-4 h-100 p-4" style="background: linear-gradient(135deg, #4F46E5 0%, #0ea5e9 100%); color: white;">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <h6 class="opacity-75 mb-1">Enrolled Course</h6>
+                                    <h4 class="fw-bold mb-0" th:text="${student.batch}">Batch Name</h4>
+                                </div>
+                                <i class="bi bi-journal-bookmark fs-1 opacity-50"></i>
+                            </div>
+                            <div class="mt-auto">
+                                <a href="/student/profile" class="btn btn-light btn-sm rounded-pill px-3 fw-bold text-primary">View Profile</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Fees Card -->
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm rounded-4 h-100 p-4 bg-white">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <div>
+                                    <h6 class="text-muted mb-1">Fees Overview</h6>
+                                    <h4 class="fw-bold text-danger mb-0" th:text="${'₹' + student.feesRemaining}">Pending</h4>
+                                    <small class="text-success fw-bold">Paid: ₹<span th:text="${student.feesPaid}"></span></small>
+                                </div>
+                                <i class="bi bi-wallet2 fs-1 text-primary opacity-25"></i>
+                            </div>
+                            <div class="mt-auto">
+                                <a href="/student/payments" class="btn btn-outline-primary btn-sm rounded-pill px-3">View Receipts</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notification Card -->
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm rounded-4 h-100 p-0 bg-white overflow-hidden">
+                            <div class="card-header bg-white border-bottom-0 pt-4 px-4">
+                                <h6 class="fw-bold mb-0"><i class="bi bi-bell text-warning me-2"></i> Recent Notifications</h6>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="list-group list-group-flush">
+                                    <div th:each="n, iter : ${notifications}" th:if="${iter.index < 3}" class="list-group-item border-0 px-4 py-3 border-bottom">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h6 class="mb-1 fw-bold text-primary" th:text="${n.title}">Notice</h6>
+                                            <small class="text-muted" th:text="${n.date}">Date</small>
+                                        </div>
+                                        <p class="mb-1 small text-muted text-truncate" th:text="${n.message}">Msg</p>
+                                    </div>
+                                    <div th:if="${#lists.isEmpty(notifications)}" class="px-4 py-3 text-muted small">
+                                        No new notifications.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

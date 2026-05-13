@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>EduTrack | Site Settings</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+</head>
+<body style="background-color: #f0f2f5;">
+
+    <div th:replace="~{admin/fragments :: navbar}"></div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div th:replace="~{admin/fragments :: sidebar(activeMenu='settings')}"></div>
+
+            <main class="col-md-10 py-4 px-4">
+                <h1 class="h3 fw-bold mb-4">Settings & About Us</h1>
+
+                <form action="/admin/settings/save" method="post" enctype="multipart/form-data">
+                    <div class="row g-4">
+                        <!-- Contact Info Settings -->
+                        <div class="col-lg-6">
+                            <div class="card shadow-sm border-0 rounded-3 h-100">
+                                <div class="card-header bg-white py-3 border-bottom-0"><h5 class="mb-0 fw-bold">Contact Information</h5></div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label class="form-label">Mobile Number</label>
+                                        <input type="text" name="mobileNumber" th:value="${settings.mobileNumber}" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Email Address</label>
+                                        <input type="email" name="email" th:value="${settings.email}" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Full Address</label>
+                                        <textarea name="address" class="form-control" rows="2" th:text="${settings.address}"></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Google Map URL (Embed)</label>
+                                        <input type="url" name="googleMapUrl" th:value="${settings.googleMapUrl}" class="form-control" placeholder="https://www.google.com/maps/embed?...">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Social Links</label>
+                                        <div class="input-group mb-2">
+                                            <span class="input-group-text"><i class="bi bi-facebook"></i></span>
+                                            <input type="url" name="facebookUrl" th:value="${settings.facebookUrl}" class="form-control" placeholder="Facebook URL">
+                                        </div>
+                                        <div class="input-group mb-2">
+                                            <span class="input-group-text"><i class="bi bi-instagram"></i></span>
+                                            <input type="url" name="instagramUrl" th:value="${settings.instagramUrl}" class="form-control" placeholder="Instagram URL">
+                                        </div>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="bi bi-linkedin"></i></span>
+                                            <input type="url" name="linkedinUrl" th:value="${settings.linkedinUrl}" class="form-control" placeholder="LinkedIn URL">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- About Us Settings -->
+                        <div class="col-lg-6">
+                            <div class="card shadow-sm border-0 rounded-3 h-100">
+                                <div class="card-header bg-white py-3 border-bottom-0"><h5 class="mb-0 fw-bold">About Us Content</h5></div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label class="form-label">Institute Introduction</label>
+                                        <textarea name="instituteIntro" class="form-control" rows="3" th:text="${settings.instituteIntro}"></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Vision & Mission</label>
+                                        <textarea name="visionMission" class="form-control" rows="2" th:text="${settings.visionMission}"></textarea>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Why Choose Us</label>
+                                        <textarea name="whyChooseUs" class="form-control" rows="2" th:text="${settings.whyChooseUs}"></textarea>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Total Students Trained</label>
+                                            <input type="number" name="studentStats" th:value="${settings.studentStats}" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label">Total Placements</label>
+                                            <input type="number" name="placementStats" th:value="${settings.placementStats}" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">About Us Image</label>
+                                        <input type="file" name="aboutImage" class="form-control" accept="image/*">
+                                        <div th:if="${settings.aboutImageBase64 != null}" class="mt-2">
+                                            <img th:src="${settings.aboutImageBase64}" width="100" class="rounded">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-end mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg px-5">Save All Settings</button>
+                    </div>
+                </form>
+
+            </main>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
